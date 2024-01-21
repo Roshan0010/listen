@@ -4,7 +4,7 @@ import './App.css'
 import Home from './Pages/Home'
 
 import { MdPlaylistAddCircle } from "react-icons/md";
-import { useState,  } from 'react';
+import { useState } from 'react';
 import Modal from './components/Modal';
 import MusicPlayerFooter from './components/MusicPlayerFooter';
 

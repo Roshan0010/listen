@@ -1,27 +1,43 @@
 /* eslint-disable react/prop-types */
 
+import { useEffect, useState } from "react";
+import { storage } from "../lib/appwrite";
 
-const MusicCards = ({item}) => {
-    const {name, place,}=item;
-    let cntr=Math.floor(Math.random() * 100) + 1;
-    return (
-        <div className=' w-[19rem] h-[20rem] rounded-xl '>
-      <img className='bg-pink-400 w-full h-[80%] rounded-xl' src={`https://source.unsplash.com/random/200x200?sig=${Date.now()}+${cntr++}⁠`}/>
+const MusicCards = ({ item }) => {
+  const { title, artist, image_id } = item;
+  const [image, setImage] = useState('');
 
-      <div className=''>
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await storage.getFileView(
+          import.meta.env.VITE_APPWRITE_BUCKET_ID_PHOTO,
+          image_id
+        );
+        setImage(result); // Assuming `result` contains the image data
+      } catch (error) {
+        console.error("Error fetching image:", error);
+      }
+    };
 
-      </div>
-      <div className='flex flex-col '>
+    fetchData();
 
-      
-       <div className='mt-2'>
-      {`${name}`}
+    // Cleanup logic if needed
+    return () => {
+      // Cleanup logic here
+    };
+  }, [image_id]);
+
+
+  return (
+    <div className='w-[19rem] h-[20rem] rounded-xl'>
+      <img src={image} alt={`${title} cover`} className='bg-pink-400 w-full h-[80%] rounded-xl object-cover' />
+      <div className='flex flex-col mt-2'>
+        <div>{title}</div>
+        <div className='text-slate-500'>{artist}</div>
       </div>
-      <div className='text-slate-500'>
-      {`${place}`}
-      </div>
-      </div>
-      </div>)
-}
+    </div>
+  );
+};
 
 export default MusicCards;

@@ -4,16 +4,16 @@ import { useState, useEffect } from 'react';
 import { SiApplemusic } from 'react-icons/si';
 import { TbMusicPlus } from 'react-icons/tb';
 import { MdOutlineAddAPhoto } from 'react-icons/md';
-import { client } from '../lib/appwrite';
-import { ID, Storage } from 'appwrite';
+import { database,storage} from '../lib/appwrite';
+import {ID} from 'appwrite';
+import Select from 'react-select'; // Import react-select
 
 const Modal = ({ isOpen, onClose }) => {
   const [title, setTitle] = useState('');
   const [artist, setArtist] = useState(''); // New state for artist
-  // const [photo, setPhoto] = useState(null);
-  // const [music, setMusic] = useState(null);
   const [photoID,setphotoID]=useState('');
   const [musicID,setMusicID]=useState('');
+  const [genre, setGenre] = useState(''); // New state for genre
 
   useEffect(() => {
     // Reset form fields when the modal is closed
@@ -21,7 +21,7 @@ const Modal = ({ isOpen, onClose }) => {
       setTitle('');
       setArtist('');
       setphotoID('');
-      setMusicID('null');
+      setMusicID('');
     }
   }, [isOpen]);
 
@@ -37,9 +37,8 @@ const Modal = ({ isOpen, onClose }) => {
   const handlePhotoChange = (e) => {
 
     const selectedPhoto = e.target.files[0];
-    const storage = new Storage(client);
 
-    const promise = storage.createFile(import.meta.env.VITE_APPWRITE_BUCKET_ID_MUSIC,ID.unique(), selectedPhoto);
+    const promise = storage.createFile(import.meta.env.VITE_APPWRITE_BUCKET_ID_PHOTO,ID.unique(), selectedPhoto);
 
 
 promise.then(function (response) {
@@ -49,14 +48,23 @@ promise.then(function (response) {
 });
 
   };
+  const handleGenreChange = (selectedOption) => {
+    console.log(selectedOption); 
+    setGenre(selectedOption.value);
+  };
 
+  const genreOptions = [
+    { value: 'slow', label: 'Slow Songs' },
+    { value: 'bhajans', label: 'Bhagans' },
+    { value: 'love', label: 'Love Songs' },
 
+    // Add more genre options as needed
+  ];
 
 
 
   const handleMusicChange = (e) => {
     const selectedMusic = e.target.files[0];
-    const storage = new Storage(client);
 
     const promise = storage.createFile(import.meta.env.VITE_APPWRITE_BUCKET_ID_MUSIC,ID.unique(), selectedMusic);
 
@@ -70,10 +78,23 @@ promise.then(function (response) {
   };
 
   const handleSubmit = () => {
-    console.log('Title:', title);
-    console.log('Artist:', artist);
-    console.log('Photoid:', photoID);
-    console.log('Musicid:', musicID);
+  const result = {
+    title: title,
+    artist: artist,
+    genre:genre,
+    song_id: musicID,
+    image_id: photoID,
+  }
+
+const promise = database.createDocument(import.meta.env.VITE_APPWRITE_DATABASE_ID,import.meta.env.VITE_APPWRITE_COLLECTION_ID,ID.unique(), result);
+
+promise.then(function (response) {
+    console.log(response); // Success
+}, function (error) {
+    console.log(error); // Failure
+});
+
+
 
     onClose();
   };
@@ -96,17 +117,28 @@ promise.then(function (response) {
             <label className="block mb-2 text-2xl">Artist:</label>
             <input className="w-full p-2 border  bg-slate-800 rounded" type="text" value={artist} onChange={handleArtistChange} />
           </div>
+          <div className='flex gap-3 mt-5'>
+            <label className="block mb-2 text-2xl">Genre:</label>
+            <Select
+              options={genreOptions}
+              value={genre}
+              onChange={handleGenreChange}
+              placeholder="Select Genre"
+            />
+          </div> 
 
           <div className='flex gap-5 items-center relative'>
             <label className="block mt-4 mb-2 text-2xl">Photo:</label>
-            <div className="mt-6 bg-green-800  text-white p-2 rounded-xl h-14  w-14" >
+            <div className="mt-6 text-white p-2 rounded-xl h-14 w-14"
+                 style={{ backgroundColor: photoID ? 'red': 'green'}}>
               <MdOutlineAddAPhoto className='absolute text-4xl  '></MdOutlineAddAPhoto>
               <input className="w-full opacity-0" type="file" accept="image/*" onChange={handlePhotoChange} />
             </div>
           </div>
           <div className='flex gap-5 items-center relative'>
             <label className="block mt-4 mb-2 text-2xl">Music:</label>
-            <div className="mt-6 bg-green-800  text-white p-2 rounded-xl h-14  w-14 " >
+            <div className="mt-6   text-white p-2 rounded-xl h-14  w-14 " 
+              style={{ backgroundColor: musicID ? 'red': 'green'}}>
               <TbMusicPlus className='absolute text-4xl  '></TbMusicPlus>
               <input className="w-full  border rounded opacity-0 " type="file" accept="audio/*" onChange={handleMusicChange} />
             </div>
