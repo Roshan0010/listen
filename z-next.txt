@@ -1,0 +1,18 @@
+current 
+    0. download toast and make a toast for sucessful upload of image and disable the button 
+        same goes for music
+    
+    0.2 add genear in form and database as option as {"spiritual","love' etc}
+    1. create a show as based on genear and a find functionality for finding the songs
+    1.upload all the things to database on submit
+    2.get the data from the database and make the get functionality 
+    3.make a main card to view the song and expore how to get subtitles using mp3
+    4.how to control play and pause of the songs 
+    5.how to make the songs with 
+    6. make a database as todays play and do the same in  ui
+after:
+ 0. how to shuffle todays play
+ 1.make a functionality which cheks every day that what are the images present in database 
+ if its not present delete the image.
+ 
+
