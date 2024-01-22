@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/button-has-type */
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import { useContext, useEffect, useState } from 'react';

@@ -13,7 +13,6 @@ import MusicPlayerFooter from './components/MusicPlayerFooter';
 import SongPage from './Pages/SongPage';
 import { UserContext, UserContextProvider } from './components/UserContex';
 
-
 function App() {
   // console.log(account);
 
