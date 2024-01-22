@@ -4,13 +4,16 @@ current
     
     
     1. create a show as based on genear and a find functionality for finding the songs
-    3.make a main card to view the song and expore how to get subtitles using mp3
-    4.how to control play and pause of the songs 
-    5.how to make the songs with 
-    6. make a database as todays play and do the same in  ui
+    3. expore how to get subtitles using mp3
+    7.state management kar ke on creating song make the page refresh(pending)
+    8.my monday playlist
+    
 after:
  0. how to shuffle todays play
  1.make a functionality which cheks every day that what are the images present in database 
  if its not present delete the image.
+
+ tommy:
+timmer for making song close.
  
 

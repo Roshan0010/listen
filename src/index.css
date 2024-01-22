@@ -7,3 +7,13 @@
   background-color: #242424;
   color:white;
 }
+
+@keyframes fadeInOut {
+  0%, 100% {
+    opacity: 0.5; /* Start and end with opacity 0 (fade-out) */
+  }
+  50% {
+    opacity: 1; /* Reach full opacity at the midpoint (fade-in) */
+  }
+}
+

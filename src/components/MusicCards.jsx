@@ -1,22 +1,25 @@
+/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable camelcase */
 /* eslint-disable react/prop-types */
 
-import { useEffect, useState } from "react";
-import { storage } from "../lib/appwrite";
+import { useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom';
+import { storage } from '../lib/appwrite';
 
 const MusicCards = ({ item }) => {
-  const { title, artist, image_id } = item;
+  const { title, artist, image_id, $id } = item;
   const [image, setImage] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await storage.getFileView(
+        const result = storage.getFileView(
           import.meta.env.VITE_APPWRITE_BUCKET_ID_PHOTO,
-          image_id
+          image_id,
         );
         setImage(result); // Assuming `result` contains the image data
       } catch (error) {
-        console.error("Error fetching image:", error);
+        console.error('Error fetching image:', error);
       }
     };
 
@@ -28,14 +31,19 @@ const MusicCards = ({ item }) => {
     };
   }, [image_id]);
 
-
   return (
-    <div className='w-[19rem] h-[20rem] rounded-xl'>
-      <img src={image} alt={`${title} cover`} className='bg-pink-400 w-full h-[80%] rounded-xl object-cover' />
-      <div className='flex flex-col mt-2'>
-        <div>{title}</div>
-        <div className='text-slate-500'>{artist}</div>
-      </div>
+    <div className="w-[19rem] h-[20rem] rounded-xl">
+      <NavLink to={`songs/${$id}`}>
+        <img
+          src={image}
+          alt={`${title} cover`}
+          className="bg-pink-400 w-full h-[80%] rounded-xl object-cover"
+        />
+        <div className="flex flex-col mt-2">
+          <div>{title}</div>
+          <div className="text-slate-500">{artist}</div>
+        </div>
+      </NavLink>
     </div>
   );
 };

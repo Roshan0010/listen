@@ -1,8 +1,8 @@
 /* eslint-disable react/jsx-key */
 
-import { useEffect, useState } from "react";
-import MusicCards from "../components/MusicCards";
-import { database } from "../lib/appwrite";
+import { useEffect, useState } from 'react';
+import MusicCards from '../components/MusicCards';
+import { database } from '../lib/appwrite';
 
 function Home() {
   const [data, setData] = useState([]);
@@ -13,7 +13,7 @@ function Home() {
       try {
         const response = await database.listDocuments(
           import.meta.env.VITE_APPWRITE_DATABASE_ID,
-          import.meta.env.VITE_APPWRITE_COLLECTION_ID
+          import.meta.env.VITE_APPWRITE_COLLECTION_ID,
         );
         // console.log(response); // Success
         setData(response.documents);
@@ -23,24 +23,23 @@ function Home() {
         setLoading(false);
       }
     };
-  
+
     fetchData();
-  
+
     return () => {
       // Cleanup logic if needed
     };
   }, []);
-  
 
   return (
-    <div className='h-[100%] w-[90%] flex flex-wrap justify-evenly mt-10 gap-y-5 '>
+    <div
+      className="h-[100%] w-[90%] mb-20 flex flex-wrap justify-evenly mt-10 gap-y-10 
+    gap-x-10 "
+    >
       {loading ? (
         <p>Loading...</p>
       ) : (
-        data &&
-        data.map((item) => {
-          return <MusicCards key={item.id} item={item} />;
-        })
+        data && data.map((item) => <MusicCards key={item.id} item={item} />)
       )}
     </div>
   );
