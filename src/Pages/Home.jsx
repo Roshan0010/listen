@@ -1,45 +1,46 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-key */
 
 import { useEffect, useState } from 'react';
 import MusicCards from '../components/MusicCards';
 import { database } from '../lib/appwrite';
+import SearchSong from '../components/SearchSong';
+import GenearCard from '../components/GenearCard';
 
-function Home() {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
+function Home({ data, loading, generImages }) {
+  const [gener, setGener] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await database.listDocuments(
-          import.meta.env.VITE_APPWRITE_DATABASE_ID,
-          import.meta.env.VITE_APPWRITE_COLLECTION_ID,
-        );
-        // console.log(response); // Success
-        setData(response.documents);
-      } catch (error) {
-        console.log(error); // Failure
-      } finally {
-        setLoading(false);
-      }
-    };
+    setGener(generImages);
+  }, [generImages]);
 
-    fetchData();
-
-    return () => {
-      // Cleanup logic if needed
-    };
-  }, []);
+  // useEffect(() => {
+  //   // This will run whenever 'data' is updated
+  //   console.log(gener);
+  // }, [gener]);
 
   return (
-    <div
-      className="h-[100%] w-[90%] mb-20 flex flex-wrap justify-evenly mt-10 gap-y-10 
-    gap-x-10 "
-    >
+    <div className="h-[100%] w-[90%]  ">
       {loading ? (
         <p>Loading...</p>
       ) : (
-        data && data.map((item) => <MusicCards key={item.id} item={item} />)
+        <div>
+          <SearchSong />
+          <span className="text-3xl ml-3">All songs:</span>
+          <div className="  flex mt-2 gap-y-10 gap-x-10 overflow-x-auto">
+            <div className="flex w-auto space-x-4">
+              {data &&
+                data.map((item) => <MusicCards key={item.id} item={item} />)}
+            </div>
+          </div>
+          <span className="text-3xl ml-3">Gener:</span>
+          <div className=" mb-20 mt-2 gap-y-10 gap-x-10 overflow-x-auto ">
+            <div className="flex w-auto space-x-4">
+              {gener &&
+                gener.map((item) => <GenearCard key={item.id} item={item} />)}
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
