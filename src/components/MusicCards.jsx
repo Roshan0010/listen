@@ -41,7 +41,7 @@ const MusicCards = ({ item }) => {
         />
         <div className="flex flex-col mt-2">
           <div>{title}</div>
-          <div className="text-slate-500">{artist.slice(0,30)}</div>
+          <div className="text-slate-500">{artist.slice(0, 30)}</div>
         </div>
       </NavLink>
     </div>
