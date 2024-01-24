@@ -3,6 +3,7 @@ import React from 'react';
 import GenerList from '../components/GenerList';
 
 const PlaylistPage = ({ data, wideImage }) => {
+  console.log(data);
   const day = new Date();
   return (
     <div className="h-[90vh] w-[80%] flex flex-col relative mt-4 ">

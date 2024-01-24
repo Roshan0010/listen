@@ -1,12 +1,11 @@
+listen 2.0 
+
 current 
-    0. download toast and make a toast for sucessful upload of image and disable the button 
-        same goes for music
-    
-    
-    1. create a show as based on genear and a find functionality for finding the songs
+ 
+    1. how to play songs in playlist & once 1 song is stoped how to play another song from a list
     3. expore how to get subtitles using mp3
     7.state management kar ke on creating song make the page refresh(pending)
-    8.my monday playlist
+
     
 after:
  0. how to shuffle todays play

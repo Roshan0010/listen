@@ -71,7 +71,7 @@ function App() {
     dayOfWeekMap.set(1, 'Mon');
     dayOfWeekMap.set(2, 'Tue');
     dayOfWeekMap.set(3, 'Wed');
-    dayOfWeekMap.set(4, 'Thu');
+    dayOfWeekMap.set(4, 'Thu'); 
     dayOfWeekMap.set(5, 'Fri');
     dayOfWeekMap.set(6, 'Sat');
 
@@ -127,7 +127,6 @@ function App() {
             path="/songs/:id"
             element={<SongPage setMusic={setMusic} play={play} music={music} />}
           />
-
           <Route
             path="/genre/:genre"
             element={<GenerPage data={data} generwideImage={generwideImage} />}
