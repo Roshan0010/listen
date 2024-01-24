@@ -128,7 +128,7 @@ function App() {
           <MdPlaylistAddCircle className="absolute text-6xl ml-3 mt-3 hover:" />
         </button>
       )}
-      <Modal isOpen={isModalOpen} onClose={closeModal} />
+      <Modal isOpen={isModalOpen} onClose={closeModal} className="z-10" />
 
       {/* Hover effect */}
       <div className=" flex justify-center">

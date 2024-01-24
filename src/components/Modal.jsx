@@ -1,3 +1,5 @@
+/* eslint-disable no-prototype-builtins */
+/* eslint-disable no-continue */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/label-has-associated-control */
@@ -57,7 +59,6 @@ const Modal = ({ isOpen, onClose }) => {
     );
   };
   const handleGenreChange = (selectedOption) => {
-    console.log(selectedOption);
     setGenre(selectedOption.value);
   };
 
@@ -83,7 +84,6 @@ const Modal = ({ isOpen, onClose }) => {
     promise.then(
       (response) => {
         setMusicID(response.$id);
-        console.log(response.$id);
       },
       (error) => {
         console.log(error); // Failure
@@ -91,35 +91,65 @@ const Modal = ({ isOpen, onClose }) => {
     );
   };
 
-  const handleSubmit = () => {
-    const result = {
-      title,
-      artist,
-      genre,
-      song_id: musicID,
-      image_id: photoID,
-    };
+  const handleSubmit = async () => {
+    try {
+      const res = await database.getDocument(
+        import.meta.env.VITE_APPWRITE_DATABASE_ID,
+        import.meta.env.VITE_APPWRITE_DAY_COLLECTION_ID,
+        import.meta.env.VITE_APPWRITE_DAY_DOCUMENT_ID,
+      );
 
-    const promise = database.createDocument(
-      import.meta.env.VITE_APPWRITE_DATABASE_ID,
-      import.meta.env.VITE_APPWRITE_COLLECTION_ID,
-      ID.unique(),
-      result,
-    );
+      let minNum = Infinity;
+      let minDay = 'Mon';
 
-    promise.then(
-      () => {
-        toast.success('Successfully created song');
-      },
-      (error) => {
-        console.log(error); // Failure
-        toast.error('Try again later');
-      },
-    );
+      for (const [key, value] of Object.entries(res)) {
+        if (typeof value !== 'number') {
+          continue;
+        }
 
-    onClose();
+        const dayNumber = res[key];
+
+        if (dayNumber !== undefined && minNum > value) {
+          minNum = value;
+          minDay = key;
+        }
+      }
+
+      const result = {
+        title,
+        artist,
+        genre,
+        song_id: musicID,
+        image_id: photoID,
+        day: minDay,
+      };
+
+      const createDocumentPromise = database.createDocument(
+        import.meta.env.VITE_APPWRITE_DATABASE_ID,
+        import.meta.env.VITE_APPWRITE_COLLECTION_ID,
+        ID.unique(),
+        result,
+      );
+
+      await createDocumentPromise;
+
+      const updateDocumentPromise = database.updateDocument(
+        import.meta.env.VITE_APPWRITE_DATABASE_ID,
+        import.meta.env.VITE_APPWRITE_DAY_COLLECTION_ID,
+        import.meta.env.VITE_APPWRITE_DAY_DOCUMENT_ID,
+        { [minDay]: minNum + 1 },
+      );
+
+      await updateDocumentPromise;
+
+      console.log('Success');
+      toast.success('Successfully created song');
+      onClose();
+    } catch (error) {
+      console.log(error); // Failure
+      toast.error('Try again later');
+    }
   };
-
   return (
     <div
       className={`modal w-[30%] inset-0 ${isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}

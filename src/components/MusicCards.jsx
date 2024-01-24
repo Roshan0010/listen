@@ -32,7 +32,7 @@ const MusicCards = ({ item }) => {
   }, [image_id]);
 
   return (
-    <div className="w-[19rem] h-[20rem] rounded-xl">
+    <div className="w-[17rem] h-[19rem] rounded-xl">
       <NavLink to={`songs/${$id}`}>
         <img
           src={image}
