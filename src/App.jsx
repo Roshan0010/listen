@@ -9,61 +9,19 @@ import { MdPlaylistAddCircle } from 'react-icons/md';
 import { useEffect, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
 import Home from './Pages/Home';
-
+import { generImages, generwideImage, todaysImage } from './config/Data';
 import Modal from './components/Modal';
 import MusicPlayerFooter from './components/MusicPlayerFooter';
 import SongPage from './Pages/SongPage';
 import GenerPage from './Pages/GenerPage';
 import { database } from './lib/appwrite';
+import PlaylistPage from './Pages/PlaylistPage';
 
 function App() {
   // console.log(account);
   const [currentLocation, setCurrentLoction] = useState('');
+  const [todayData, setTodayData] = useState(null);
 
-  const generImages = [
-    {
-      title: 'slow',
-      url: 'https://cloud.appwrite.io/v1/storage/buckets/65af6e78a7ee4064c3ef/files/65af7cae056ecac37c18/view?project=65aba948a96699b1bdd6&mode=admin',
-    },
-    {
-      title: 'love',
-      url: 'https://cloud.appwrite.io/v1/storage/buckets/65af6e78a7ee4064c3ef/files/65af7c9fe170e58a98be/view?project=65aba948a96699b1bdd6&mode=admin',
-    },
-    {
-      title: 'bhajans',
-      url: 'https://cloud.appwrite.io/v1/storage/buckets/65af6e78a7ee4064c3ef/files/65af73ac8a347c10ecbf/view?project=65aba948a96699b1bdd6&mode=admin',
-    },
-    {
-      title: 'english',
-      url: 'https://cloud.appwrite.io/v1/storage/buckets/65af6e78a7ee4064c3ef/files/65af7f58740bab484e4e/view?project=65aba948a96699b1bdd6&mode=admin',
-    },
-    {
-      title: 'rap',
-      url: 'https://cloud.appwrite.io/v1/storage/buckets/65af6e78a7ee4064c3ef/files/65af808f348e700354a5/view?project=65aba948a96699b1bdd6&mode=admin',
-    },
-  ];
-  const generwideImage = [
-    {
-      title: 'slow',
-      url: 'https://cloud.appwrite.io/v1/storage/buckets/65af6e78a7ee4064c3ef/files/65af95c3e5e34f6a0b7e/view?project=65aba948a96699b1bdd6&mode=admin',
-    },
-    {
-      title: 'love',
-      url: 'https://cloud.appwrite.io/v1/storage/buckets/65af6e78a7ee4064c3ef/files/65af962ace4e9d50a15d/view?project=65aba948a96699b1bdd6&mode=admin',
-    },
-    {
-      title: 'bhajans',
-      url: 'https://cloud.appwrite.io/v1/storage/buckets/65af6e78a7ee4064c3ef/files/65af93fe7c2f80fd88be/view?project=65aba948a96699b1bdd6&mode=admin',
-    },
-    {
-      title: 'english',
-      url: 'https://cloud.appwrite.io/v1/storage/buckets/65af6e78a7ee4064c3ef/files/65af95fb148f9736d779/view?project=65aba948a96699b1bdd6&mode=admin',
-    },
-    {
-      title: 'rap',
-      url: 'https://cloud.appwrite.io/v1/storage/buckets/65af6e78a7ee4064c3ef/files/65af965dec35d34b6e54/view?project=65aba948a96699b1bdd6&mode=admin',
-    },
-  ];
   const [isModalOpen, setModalOpen] = useState(false);
   const [music, setMusic] = useState(null);
   const [play, setPlay] = useState(false);
@@ -71,6 +29,7 @@ function App() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const location = useLocation();
+  const [todayWideImage, setTodayWideImage] = useState(null);
 
   // Extract the pathname from the location object
   const currentDirectory = location.pathname;
@@ -100,6 +59,31 @@ function App() {
       // Cleanup logic if needed
     };
   }, []);
+
+  useEffect(() => {
+    const today = new Date();
+
+    const dayOfWeek = today.getDay();
+    const dayOfWeekMap = new Map();
+
+    // Set values for each day
+    dayOfWeekMap.set(0, 'Sun');
+    dayOfWeekMap.set(1, 'Mon');
+    dayOfWeekMap.set(2, 'Tue');
+    dayOfWeekMap.set(3, 'Wed');
+    dayOfWeekMap.set(4, 'Thu');
+    dayOfWeekMap.set(5, 'Fri');
+    dayOfWeekMap.set(6, 'Sat');
+
+    // Use get method to retrieve the day
+    const currentDay = dayOfWeekMap.get(dayOfWeek);
+
+    const tempdata = data.filter((item) => item.day === currentDay);
+    setTodayData(tempdata);
+    setTodayWideImage(todaysImage[dayOfWeek]);
+
+    return () => {};
+  }, [data]);
 
   const openModal = () => {
     setModalOpen(true);
@@ -143,17 +127,16 @@ function App() {
             path="/songs/:id"
             element={<SongPage setMusic={setMusic} play={play} music={music} />}
           />
-          {generImages.map((item) => (
-            <Route
-              path={`/${item.title}/songs/:id`}
-              element={
-                <SongPage setMusic={setMusic} play={play} music={music} />
-              }
-            />
-          ))}
+
           <Route
-            path=":genre"
+            path="/genre/:genre"
             element={<GenerPage data={data} generwideImage={generwideImage} />}
+          />
+          <Route
+            path="/playlist/:day"
+            element={
+              <PlaylistPage data={todayData} wideImage={todayWideImage} />
+            }
           />
         </Routes>
       </div>

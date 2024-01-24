@@ -1,13 +1,15 @@
+/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
 import { FaCirclePlay } from 'react-icons/fa6';
-import { storage } from '../lib/appwrite';
 import { NavLink } from 'react-router-dom';
+import { storage } from '../lib/appwrite';
 
 const GenerList = ({ item }) => {
   const [image, setImage] = useState('');
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -38,7 +40,7 @@ const GenerList = ({ item }) => {
           <span className="italic opacity-40">{item.artist}</span>
         </div>
       </div>
-      <NavLink to={`songs/${item.$id}`} className=" clear-start ml-5 w-[7%]">
+      <NavLink to={`/songs/${item.$id}`} className=" clear-start ml-5 w-[7%]">
         <FaCirclePlay size={50} className="h-[100%] " />
       </NavLink>
     </div>

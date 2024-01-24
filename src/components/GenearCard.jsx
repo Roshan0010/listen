@@ -10,7 +10,7 @@ const GenearCard = ({ item }) => {
   const [image, setImage] = useState('');
   return (
     <div className="w-[19rem] h-[20rem] rounded-xl   ">
-      <NavLink to={`${item.title}`}>
+      <NavLink to={`/genre/${item.title}`}>
         <img
           src={item.url}
           alt={`${item.title} cover`}
