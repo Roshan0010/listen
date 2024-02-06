@@ -1,4 +1,8 @@
 listen 2.0 
+   1 apply pagination :https://appwrite.io/docs/products/databases/pagination
+   2 and make the music player where we can use playlist yo play whole music
+   3 make changes and sub table or get all the data one by one see the better approch and
+    execute it 
 
 current 
  

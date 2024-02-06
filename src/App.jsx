@@ -4,6 +4,7 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable react/button-has-type */
 import { Routes, Route, useLocation } from 'react-router-dom';
+import { Query } from 'appwrite';
 import './App.css';
 import { MdPlaylistAddCircle } from 'react-icons/md';
 import { useEffect, useState } from 'react';
@@ -41,6 +42,7 @@ function App() {
         const response = await database.listDocuments(
           import.meta.env.VITE_APPWRITE_DATABASE_ID,
           import.meta.env.VITE_APPWRITE_COLLECTION_ID,
+          [Query.limit(50), Query.offset(0)],
         );
         setData(response.documents);
         console.log(response.documents);
