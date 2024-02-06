@@ -67,7 +67,8 @@ const Modal = ({ isOpen, onClose }) => {
     { value: 'bhajans', label: 'Bhagans' },
     { value: 'love', label: 'Love Songs' },
     { value: 'english', label: 'english Songs' },
-    { value: 'rap', label: 'rap' },
+    { value: 'rap', label: 'rap songs' },
+    { value: 'old', label: 'old songs' },
 
     // Add more genre options as needed
   ];

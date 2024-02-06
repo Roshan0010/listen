@@ -2,9 +2,8 @@
 /* eslint-disable camelcase */
 /* eslint-disable react/prop-types */
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { storage } from '../lib/appwrite';
 
 const GenearCard = ({ item }) => {
   const [image, setImage] = useState('');

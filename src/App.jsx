@@ -43,6 +43,7 @@ function App() {
           import.meta.env.VITE_APPWRITE_COLLECTION_ID,
         );
         setData(response.documents);
+        console.log(response.documents);
 
         // const genreData = await data.map((item) => item.gener);
         // console.log(genreData);
@@ -71,7 +72,7 @@ function App() {
     dayOfWeekMap.set(1, 'Mon');
     dayOfWeekMap.set(2, 'Tue');
     dayOfWeekMap.set(3, 'Wed');
-    dayOfWeekMap.set(4, 'Thu'); 
+    dayOfWeekMap.set(4, 'Thu');
     dayOfWeekMap.set(5, 'Fri');
     dayOfWeekMap.set(6, 'Sat');
 
@@ -148,4 +149,4 @@ function App() {
 }
 
 export default App;
-//redeploy
+// redeploy

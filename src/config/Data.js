@@ -19,6 +19,10 @@ export const generImages = [
     title: 'rap',
     url: 'https://cloud.appwrite.io/v1/storage/buckets/65af6e78a7ee4064c3ef/files/65af808f348e700354a5/view?project=65aba948a96699b1bdd6&mode=admin',
   },
+  {
+    title: 'old',
+    url: 'https://cloud.appwrite.io/v1/storage/buckets/65af6e78a7ee4064c3ef/files/65c1d4fd6c57c274d4a3/view?project=65aba948a96699b1bdd6&mode=admin',
+  },
 ];
 export const generwideImage = [
   {
@@ -40,6 +44,10 @@ export const generwideImage = [
   {
     title: 'rap',
     url: 'https://cloud.appwrite.io/v1/storage/buckets/65af6e78a7ee4064c3ef/files/65af965dec35d34b6e54/view?project=65aba948a96699b1bdd6&mode=admin',
+  },
+  {
+    title: 'old',
+    url: 'https://cloud.appwrite.io/v1/storage/buckets/65af6e78a7ee4064c3ef/files/65c1da5d4ca02d40250a/view?project=65aba948a96699b1bdd6&mode=admin',
   },
 ];
 export const todaysImage = [
