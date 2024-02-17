@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-bind */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable import/no-extraneous-dependencies */
@@ -17,6 +18,7 @@ import SongPage from './Pages/SongPage';
 import GenerPage from './Pages/GenerPage';
 import { database } from './lib/appwrite';
 import PlaylistPage from './Pages/PlaylistPage';
+import LoginModal from './components/LoginModal';
 
 function App() {
   // console.log(account);
@@ -31,6 +33,9 @@ function App() {
   const [loading, setLoading] = useState(false);
   const location = useLocation();
   const [todayWideImage, setTodayWideImage] = useState(null);
+  const [loginModal, setLoginModal] = useState(false);
+
+ 
 
   // Extract the pathname from the location object
   const currentDirectory = location.pathname;
@@ -103,18 +108,34 @@ function App() {
   return (
     <div className="w-[100vw] h-full min-h-lvh min relative bg-slate-800">
       <Toaster />
+      {loginModal && <LoginModal setLoginModal={setLoginModal} />}
+
       {/* Add modal overlay with reduced opacity when modal is open */}
+      <div
+        className=" flex justify-between  h-16 items-center "
+        style={{ position: 'sticky', top: 0 }}
+      >
+        {!isModalOpen && (
+          <button onClick={openModal} className="">
+            <MdPlaylistAddCircle className="  text-6xl ml-2 " />
+          </button>
+        )}
+
+        <button
+          className=" bg-green-600 mr-6 h-12 text-xl px-5 rounded-xl "
+          onClick={() => setLoginModal(true)}
+        >
+          Login
+        </button>
+      </div>
+
       {isModalOpen && (
         <div
           className="modal-overlay fixed top-0 left-0 w-full h-full bg-black opacity-50"
           onClick={handleOverlayClick}
         />
       )}
-      {!isModalOpen && isRootDirectory && (
-        <button style={{ position: 'sticky', top: 0 }} onClick={openModal}>
-          <MdPlaylistAddCircle className="absolute text-6xl ml-3 mt-3 hover:" />
-        </button>
-      )}
+
       <Modal isOpen={isModalOpen} onClose={closeModal} className="z-10" />
 
       {/* Hover effect */}

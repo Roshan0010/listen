@@ -1,3 +1,4 @@
+/* eslint-disable import/first */
 /* eslint-disable no-prototype-builtins */
 /* eslint-disable no-continue */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
@@ -9,9 +10,10 @@ import { SiApplemusic } from 'react-icons/si';
 import { TbMusicPlus } from 'react-icons/tb';
 import { MdOutlineAddAPhoto } from 'react-icons/md';
 import { ID } from 'appwrite';
-import Select from 'react-select'; // Import react-select
+// Import react-select
 import toast from 'react-hot-toast';
 import { database, storage } from '../lib/appwrite';
+import CustomDropdown from './CustomDropDown';
 
 const Modal = ({ isOpen, onClose }) => {
   const [title, setTitle] = useState('');
@@ -155,7 +157,7 @@ const Modal = ({ isOpen, onClose }) => {
     <div
       className={`modal w-[30%] inset-0 ${isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
     >
-      <div className="modal-content h-full fixed top-1/2 transform -translate-y-1/2 w-[30%] bg-gray-700 p-8 rounded-md shadow-md transition-opacity duration-1000 ease-in-out">
+      <div className="modal-content h-full fixed top-1/2 transform -translate-y-1/2 w-[30%] bg-gray-900 p-8 rounded-md shadow-md transition-opacity duration-1000 ease-in-out">
         <div className="w-full flex flex-col-reverse justify-center   ">
           <div
             className="text-6xl w-full text-center ml-40 mb-10"
@@ -188,7 +190,7 @@ const Modal = ({ isOpen, onClose }) => {
           </div>
           <div className="flex gap-3 mt-5">
             <label className="block mb-2 text-2xl">Genre:</label>
-            <Select
+            <CustomDropdown
               options={genreOptions}
               value={genre}
               onChange={handleGenreChange}
