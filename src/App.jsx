@@ -35,8 +35,6 @@ function App() {
   const [todayWideImage, setTodayWideImage] = useState(null);
   const [loginModal, setLoginModal] = useState(false);
 
- 
-
   // Extract the pathname from the location object
   const currentDirectory = location.pathname;
   const isRootDirectory = currentDirectory === '/';
@@ -165,7 +163,12 @@ function App() {
       </div>
       {}
       {music && (
-        <MusicPlayerFooter play={play} setPlay={setPlay} music={music} />
+        <MusicPlayerFooter
+          play={play}
+          setPlay={setPlay}
+          music={music}
+          playlist={data}
+        />
       )}
     </div>
   );

@@ -1,4 +1,15 @@
 listen 2.0 
+
+    this week todos
+
+    0 find a better approch for creating users with diffrent access 
+    0 implement redux in the project 
+    0.create a databases structure for playlist
+    0. create a music player for multiple music playing 
+
+
+
+
    1 apply pagination :https://appwrite.io/docs/products/databases/pagination
    2 and make the music player where we can use playlist yo play whole music
    3 make changes and sub table or get all the data one by one see the better approch and
