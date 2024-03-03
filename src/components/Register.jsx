@@ -32,10 +32,12 @@ const Register = ({ setRegisterOrLogin }) => {
       user: userType,
     };
 
+    const id = email.replace(/@.*$/, '') + password + userType.substring(0, 3);
+    console.log(id);
     const promise = database.createDocument(
       import.meta.env.VITE_APPWRITE_DATABASE_ID,
       import.meta.env.VITE_APPWRITE_USER_COLLECTION,
-      ID.unique(), // encription dekh lena
+      id, // encription dekh lena
       res,
     );
 

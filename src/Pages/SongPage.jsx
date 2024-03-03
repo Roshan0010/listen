@@ -36,13 +36,7 @@ const SongPage = ({ setMusic, music, play }) => {
         );
         setImage(imageResponse);
 
-        const musicResponse = storage.getFileView(
-          import.meta.env.VITE_APPWRITE_BUCKET_ID_MUSIC,
-          response.song_id,
-        );
-        console.log(musicResponse);
-        setMusic(musicResponse);
-        console.log(music);
+        setMusic(response.song_id);
 
         setLoading(false);
       } catch (error) {

@@ -22,22 +22,23 @@ const Login = ({ setRegisterOrLogin }) => {
     // console.log(email);
     // console.log(password);
     // console.log(userType);
-    const res = {
-      email,
-      password,
-      user: userType,
-    };
+    // const res = {
+    //   email,
+    //   password,
+    //   user: userType,
+    // };
+    const id = email.replace(/@.*$/, '') + password + userType.substring(0, 3);
 
-    const promise = database.createDocument(
+    const promise = database.getDocument(
       import.meta.env.VITE_APPWRITE_DATABASE_ID,
       import.meta.env.VITE_APPWRITE_USER_COLLECTION,
-      ID.unique(),
-      res,
+      id,
     );
 
     promise.then(
       (response) => {
         console.log(response); // Success
+        //do work to make the login sucess
       },
       (error) => {
         console.log(error); // Failure
@@ -46,7 +47,7 @@ const Login = ({ setRegisterOrLogin }) => {
   };
 
   return (
-    <div className="p-4 w-full flex flex-col items-center gap-10  ">
+    <div className="p-4 w-full flex flex-col items-center gap-7  ">
       <p className=" text-5xl"> Login</p>
 
       <input
@@ -71,7 +72,7 @@ const Login = ({ setRegisterOrLogin }) => {
       <div className="w-100 flex flex-col">
         <button
           type="button"
-          // onClick={() => handleSubmit()}
+          onClick={() => LoginHandle()}
           className="text-white bg-[#265470] text-xl    hover:bg-[#1D3D55] focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
               mb-3"
         >
