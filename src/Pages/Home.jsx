@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 import MusicCards from '../components/MusicCards';
 import GenearCard from '../components/GenearCard';
 import TodaysPoster from '../components/TodaysPoster';
+import Spinner from '../components/Spinner';
+
 // import Weekdays from '../config/weekDb';
 // import TodaySong from '../components/TodaySong';
 
@@ -30,7 +32,7 @@ function Home({ data, loading, generImages }) {
   return (
     <div className="h-[100%] w-[87%]  ">
       {loading ? (
-        <p>Loading...</p>
+        <Spinner />
       ) : (
         <div>
           {/* <SearchSong /> */}

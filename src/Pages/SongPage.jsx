@@ -6,6 +6,7 @@ import { useParams } from 'react-router';
 
 import { database, storage } from '../lib/appwrite';
 import { MusicContext } from '../context/MusicContext';
+import Spinner from '../components/Spinner';
 
 const SongPage = () => {
   const { id } = useParams();
@@ -50,7 +51,7 @@ const SongPage = () => {
 
   return (
     <div className="w-[80%] h-[90%] relative flex flex-col items-center">
-      {loading && <p>Loading...</p>}
+      {loading && <Spinner />}
       {!loading && (
         <div className="flex gap-3 relative w-[70%] h-[70vh] justify-center items-center flex-col">
           <img
