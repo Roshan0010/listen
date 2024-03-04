@@ -5,10 +5,9 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable react/button-has-type */
 import { Routes, Route, useLocation } from 'react-router-dom';
-import { Query } from 'appwrite';
 import './App.css';
 import { MdPlaylistAddCircle } from 'react-icons/md';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
 import Home from './Pages/Home';
 import { generImages, generwideImage, todaysImage } from './config/Data';
@@ -16,9 +15,10 @@ import Modal from './components/Modal';
 import MusicPlayerFooter from './components/MusicPlayerFooter';
 import SongPage from './Pages/SongPage';
 import GenerPage from './Pages/GenerPage';
-import { database } from './lib/appwrite';
+
 import PlaylistPage from './Pages/PlaylistPage';
 import LoginModal from './components/LoginModal';
+import { MusicContext } from './context/MusicContext';
 
 function App() {
   // console.log(account);
@@ -26,45 +26,17 @@ function App() {
   const [todayData, setTodayData] = useState(null);
 
   const [isModalOpen, setModalOpen] = useState(false);
-  const [music, setMusic] = useState(null);
   const [play, setPlay] = useState(false);
   const [mainData, setMainData] = useState([]);
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(false);
   const location = useLocation();
   const [todayWideImage, setTodayWideImage] = useState(null);
   const [loginModal, setLoginModal] = useState(false);
+  const { music, data, loading, setLoading, isPlaying, setIsPlaying } =
+    useContext(MusicContext);
 
   // Extract the pathname from the location object
   const currentDirectory = location.pathname;
   const isRootDirectory = currentDirectory === '/';
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const response = await database.listDocuments(
-          import.meta.env.VITE_APPWRITE_DATABASE_ID,
-          import.meta.env.VITE_APPWRITE_COLLECTION_ID,
-          [Query.limit(50), Query.offset(0)],
-        );
-        setData(response.documents);
-        console.log(response.documents);
-
-        // const genreData = await data.map((item) => item.gener);
-        // console.log(genreData);
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-
-    return () => {
-      // Cleanup logic if needed
-    };
-  }, []);
 
   useEffect(() => {
     const today = new Date();
@@ -145,10 +117,7 @@ function App() {
               <Home data={data} loading={loading} generImages={generImages} />
             }
           />
-          <Route
-            path="/songs/:id"
-            element={<SongPage setMusic={setMusic} play={play} music={music} />}
-          />
+          <Route path="/songs/:id" element={<SongPage />} />
           <Route
             path="/genre/:genre"
             element={<GenerPage data={data} generwideImage={generwideImage} />}
@@ -162,14 +131,7 @@ function App() {
         </Routes>
       </div>
       {}
-      {music && (
-        <MusicPlayerFooter
-          play={play}
-          setPlay={setPlay}
-          music={music}
-          playlist={data}
-        />
-      )}
+      {isPlaying && <MusicPlayerFooter music={music} playlist={data} />}
     </div>
   );
 }

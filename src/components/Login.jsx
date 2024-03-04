@@ -37,7 +37,7 @@ const Login = ({ setRegisterOrLogin }) => {
 
     promise.then(
       (response) => {
-        console.log(response); // Success
+        // console.log(response); // Success
         //do work to make the login sucess
       },
       (error) => {
