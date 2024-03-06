@@ -47,13 +47,19 @@ const MusicPlayerFooter = () => {
         index = i;
       }
     }
+    console.log(index);
     // console.log(index);
-    if (!index || index + 1 >= playlist.length) {
+    console.log(index + 1 >= playlist.length);
+    console.log(!index);
+    if (index === null || index === undefined || index + 1 >= playlist.length) {
       index = 0;
     } else {
+      console.log('idhar');
       index += 1;
     }
-
+    console.log(playlist);
+    console.log(index);
+    console.log(playlist[index]);
     setMusic(playlist[index]);
     NavigatetoPage(musicIdMap.get(playlist[index]));
   };

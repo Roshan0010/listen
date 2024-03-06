@@ -13,7 +13,7 @@ const SongPage = () => {
   const [loading, setLoading] = useState(true);
   const [image, setImage] = useState(null);
 
-  const { music, setMusic, isPlaying, setIsPlaying } = useContext(MusicContext);
+  const { setMusic, isPlaying, setIsPlaying } = useContext(MusicContext);
 
   useEffect(() => {
     console.log('Effect is running');

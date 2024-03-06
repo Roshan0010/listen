@@ -1,0 +1,9 @@
+1.make a common template for playlist and setting the playlist 
+2. new context to see which playlist is currently playing 
+
+
+
+
+3.login and signup work and page to create personal playlist as well as see the songs 
+  contributed for contributor only 
+  3.1 learn parital rendering or hiding 
