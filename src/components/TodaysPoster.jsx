@@ -10,7 +10,7 @@ const TodaysPoster = () => {
 
   return (
     <NavLink
-      to={`/playlist/${weekmap[dayOfWeek]}`}
+      to={`/todays-music/${weekmap[dayOfWeek]}`}
       className=" h-[23rem] w-[100%]  bg-zinc-50 rounded-xl "
     >
       <img

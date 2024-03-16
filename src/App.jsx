@@ -4,9 +4,9 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable react/button-has-type */
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import './App.css';
-import { MdPlaylistAddCircle } from 'react-icons/md';
+import { MdPlaylistAddCircle, MdPlaylistAdd } from 'react-icons/md';
 import { useContext, useEffect, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
 import Home from './Pages/Home';
@@ -15,9 +15,9 @@ import Modal from './components/Modal';
 import MusicPlayerFooter from './components/MusicPlayerFooter';
 import SongPage from './Pages/SongPage';
 import GenerPage from './Pages/GenerPage';
+import AddPlaylist from './Pages/AddPlaylist';
 
 import PlaylistPage from './Pages/PlaylistPage';
-import LoginModal from './components/LoginModal';
 import { MusicContext } from './context/MusicContext';
 
 function App() {
@@ -30,7 +30,9 @@ function App() {
   const [mainData, setMainData] = useState([]);
   const location = useLocation();
   const [todayWideImage, setTodayWideImage] = useState(null);
-  const [loginModal, setLoginModal] = useState(false);
+  const [createPlaylist, setCreatePlaylist] = useState(false);
+  const [addPlaylist, setAddPlaylist] = useState(false);
+  const navigate = useNavigate();
   const { music, data, loading, setLoading, isPlaying, setIsPlaying } =
     useContext(MusicContext);
 
@@ -76,13 +78,15 @@ function App() {
     }
   };
   return (
-    <div className="w-[100vw] h-full min-h-lvh min relative bg-slate-800">
+    <div
+      className={`w-[100vw] h-full min-h-lvh min relative bg-slate-800 ${isPlaying ? 'mb-20' : ''} `}
+    >
       <Toaster />
-      {loginModal && <LoginModal setLoginModal={setLoginModal} />}
+      {/* {createPlaylist && <AddPlaylist setCreatePlaylist={setCreatePlaylist} />} */}
 
       {/* Add modal overlay with reduced opacity when modal is open */}
       <div
-        className=" flex justify-between  h-16 items-center "
+        className=" flex justify-between  h-16 items-center  "
         style={{ position: 'sticky', top: 0 }}
       >
         {!isModalOpen && (
@@ -92,16 +96,17 @@ function App() {
         )}
 
         <button
-          className=" bg-green-600 mr-6 h-12 text-xl px-5 rounded-xl "
-          onClick={() => setLoginModal(true)}
+          className=" bg-green-600 text-3xl mr-6 h-12 px-5 rounded-xl flex gap-3
+          justify-center items-center "
+          onClick={() => navigate('/addPlaylist')}
         >
-          Login
+          <MdPlaylistAdd />
         </button>
       </div>
 
       {isModalOpen && (
         <div
-          className="modal-overlay fixed top-0 left-0 w-full h-full bg-black opacity-50"
+          className="modal-overlay fixed top-0 left-0 w-full h-full bg-black opacity-50 "
           onClick={handleOverlayClick}
         />
       )}
@@ -122,16 +127,23 @@ function App() {
             path="/genre/:genre"
             element={<GenerPage data={data} generwideImage={generwideImage} />}
           />
+          <Route path="/addPlaylist" element={<AddPlaylist data={data} />} />
           <Route
-            path="/playlist/:day"
+            path="/todays-music/:day"
             element={
-              <PlaylistPage data={todayData} wideImage={todayWideImage} />
+              <PlaylistPage
+                data={todayData}
+                wideImage={todayWideImage}
+                isDataPresent
+              />
             }
           />
         </Routes>
       </div>
       {}
-      {isPlaying && <MusicPlayerFooter music={music} playlist={data} />}
+      <div>
+        {isPlaying && <MusicPlayerFooter music={music} playlist={data} />}
+      </div>
     </div>
   );
 }

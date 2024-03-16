@@ -12,7 +12,7 @@ const GenerPage = ({ data, generwideImage }) => {
   const [generData, setGenerData] = useState(null);
   const { genre } = useParams();
   const [image, setImage] = useState('');
-  const { playlist, setPlaylist, music, setMusic } = useContext(MusicContext);
+  const { setPlaylist, setMusic, setIsPlaying } = useContext(MusicContext);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -37,7 +37,7 @@ const GenerPage = ({ data, generwideImage }) => {
       const songs = generData.map((item) => item.song_id);
       setPlaylist(songs);
       setMusic(songs[0]);
-      console.log(songs);
+      setIsPlaying(true);
     }
   }
 

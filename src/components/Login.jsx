@@ -38,7 +38,6 @@ const Login = ({ setRegisterOrLogin }) => {
     promise.then(
       (response) => {
         // console.log(response); // Success
-        //do work to make the login sucess
       },
       (error) => {
         console.log(error); // Failure
@@ -47,48 +46,7 @@ const Login = ({ setRegisterOrLogin }) => {
   };
 
   return (
-    <div className="p-4 w-full flex flex-col items-center gap-7  ">
-      <p className=" text-5xl"> Login</p>
-
-      <input
-        type="email"
-        placeholder="Email"
-        className="w-[90%] p-2 rounded-lg bg-gray-700"
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="password"
-        className="w-[90%] p-2 rounded-lg bg-gray-700"
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <CustomDropdown
-        options={userOptions}
-        value={userType}
-        onChange={handleUserChange}
-        placeholder={userType}
-        className="text-white w-[90%] bg-gray-700"
-      />
-      <div className="w-100 flex flex-col">
-        <button
-          type="button"
-          onClick={() => LoginHandle()}
-          className="text-white bg-[#265470] text-xl    hover:bg-[#1D3D55] focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
-              mb-3"
-        >
-          Login
-        </button>
-        <div className="flex gap-1">
-          <p>{`Do not Have an Account? `} </p>
-          <button
-            onClick={() => setRegisterOrLogin(false)}
-            className=" opacity-[70%]"
-          >
-            Register Now
-          </button>
-        </div>
-      </div>
-    </div>
+   
   );
 };
 

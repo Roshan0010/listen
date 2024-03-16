@@ -1,6 +1,6 @@
 1.make a common template for playlist and setting the playlist 
 2. new context to see which playlist is currently playing 
-
+3. when clicking any song outsite in home then make playlist global one
 
 
 
