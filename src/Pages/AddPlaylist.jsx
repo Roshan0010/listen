@@ -1,15 +1,16 @@
 /* eslint-disable react/button-has-type */
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
+import toast from 'react-hot-toast';
+import { database, storage, id } from '../lib/appwrite';
 
 const AddPlaylist = ({ data }) => {
   const [filterData, setFilterData] = useState([]);
-  const [searchData, setSearchData] = useState(null);
+  const [searchData, setSearchData] = useState([]);
   const [playlistData, setPlaylistData] = useState([]);
-  const [playlistName, setPlaylistName] = useState(null); //
+  const [playlistName, setPlaylistName] = useState(''); //
   const searchHandler = (event) => {
     const searchString = event.target.value.toLowerCase();
-
     const tempData = data
       .filter((item) => {
         const titleData = item.title.toLowerCase();
@@ -45,6 +46,7 @@ const AddPlaylist = ({ data }) => {
       setPlaylistData([...playlistData, item]);
     }
   };
+  // playlist Name check it should be altleast of 5 char
   const handleRemoveSong = (item) => {
     // Filter out the item with the given id from the playlistData
     const updatedPlaylistData = playlistData.filter(
@@ -53,11 +55,42 @@ const AddPlaylist = ({ data }) => {
     // Set the updated playlistData
     setPlaylistData(updatedPlaylistData);
   };
+  const createPlaylistHandler = async () => {
+    console.log(playlistData);
+    const playlistIdData = playlistData.map((item) => item.$id);
+    console.log(playlistIdData);
+    if (playlistName) {
+      try {
+        const result = {
+          playlist_name: playlistName,
+          allSongs: playlistIdData,
+        };
+        const createDocumentPromise = await database.createDocument(
+          import.meta.env.VITE_APPWRITE_DATABASE_ID,
+          import.meta.env.VITE_APPWRITE_PLAYLIST_COLLECTION,
+          id.unique(),
+          result,
+        );
+        toast.success(`Playlist as ${playlistName} created successfully`);
+        // Reload the current page
+        setFilterData(null);
+        setPlaylistName('');
+        setPlaylistData([]);
+        setSearchData([]);
+
+        console.log(createDocumentPromise);
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      toast.error('Playlist Name not Provided');
+    }
+  };
 
   // ram siya ram
 
   return (
-    <div className="w-full h-full flex justify-center gap-3  ">
+    <div className="w-full h-full flex justify-center gap-3 z-100 ">
       <div className="w-[70%]">
         <input
           type="text"
@@ -90,7 +123,17 @@ const AddPlaylist = ({ data }) => {
             }}
             className="bg-[#111827] w-full h-12 rounded-2xl px-8 mt-5 outline-none"
             placeholder="Playlist Name"
+            value={playlistName}
           />
+          <div className="flex justify-center mt-6 mb-6 ">
+            <button
+              className=" bg-green-600 text-3xl mr-6 h-12 px-5 rounded-3xl flex gap-3
+          justify-center items-center py-7"
+              onClick={createPlaylistHandler}
+            >
+              create playlist
+            </button>
+          </div>
           <div>
             {playlistData &&
               playlistData.map((item) => (
@@ -98,6 +141,7 @@ const AddPlaylist = ({ data }) => {
                   <p className="text-2xl">{item.title}</p>
                   <div className="flex justify-between gap-4">
                     <img
+                      loading="lazy"
                       src={`https://cloud.appwrite.io/v1/storage/buckets/65ad5ffc6721b8fd030b/files/${item.image_id}/view?project=65aba948a96699b1bdd6`}
                       alt={`${item.title} cover`}
                       className="bg-pink-400 w-[100px] h-[100px] rounded-xl object-cover"

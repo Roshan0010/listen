@@ -35,6 +35,7 @@ const MusicCards = ({ item }) => {
     <div className="w-[17rem] h-[19rem] rounded-xl">
       <NavLink to={`songs/${$id}`}>
         <img
+          loading="lazy"
           src={image}
           alt={`${title} cover`}
           className="bg-pink-400 w-full h-[80%] rounded-xl object-cover"

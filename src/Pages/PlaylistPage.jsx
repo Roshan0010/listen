@@ -41,7 +41,11 @@ const PlaylistPage = ({ data, wideImage, isDataPresent = true }) => {
           <FaCirclePlay size={50} className="h-[100%] " />
         </button>
 
-        <img className="h-[25rem] w-full rounded-xl" src={wideImage} />
+        <img
+          loading="lazy"
+          className="h-[25rem] w-full rounded-xl"
+          src={wideImage}
+        />
       </div>
       <div className="h-[50%]flex mt-20 flex-col gap-5 overflow-y-auto">
         {playlistData &&

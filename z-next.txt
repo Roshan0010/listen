@@ -31,3 +31,7 @@ after:
 timmer for making song close.
  
 
+
+
+new rules :
+there should be no +playlist button when you are already in a playlist

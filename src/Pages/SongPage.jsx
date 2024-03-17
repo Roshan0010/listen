@@ -55,6 +55,7 @@ const SongPage = () => {
       {!loading && (
         <div className="flex gap-3 relative w-[70%] h-[70vh] justify-center items-center flex-col">
           <img
+            loading="lazy"
             src={image}
             className="h-[100%] object-contain  rounded-xl"
             alt="Song Image"

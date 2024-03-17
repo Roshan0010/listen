@@ -14,6 +14,7 @@ const TodaysPoster = () => {
       className=" h-[23rem] w-[100%]  bg-zinc-50 rounded-xl "
     >
       <img
+        loading="lazy"
         src={todaysImage[dayOfWeek]}
         className="object-cover h-full w-full rounded-xl"
       />

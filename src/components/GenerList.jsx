@@ -34,7 +34,11 @@ const GenerList = ({ item }) => {
   return (
     <div className=" w-full h-[5.5rem]  rounded-xl flex gap-3 justify-between">
       <div className="flex gap-3">
-        <img src={image} className="h-[5.2rem] w-[6rem] rounded-lg" />
+        <img
+          loading="lazy"
+          src={image}
+          className="h-[5.2rem] w-[6rem] rounded-lg"
+        />
         <div className="flex flex-col gap-3">
           <span className="text-2xl"> {item.title}</span>
           <span className="italic opacity-40">{item.artist}</span>

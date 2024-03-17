@@ -7,3 +7,4 @@ client.setEndpoint(conf.appwriteUrl).setProject(conf.appwriteProjectId); // Repl
 export const account = new Account(client);
 export const database = new Databases(client);
 export const storage = new Storage(client);
+export const id = ID;

@@ -9,6 +9,7 @@ const GenearCard = ({ item }) => (
   <div className="w-[19rem] h-[20rem] rounded-xl   ">
     <NavLink to={`/genre/${item.title}`}>
       <img
+        loading="lazy"
         src={item.url}
         alt={`${item.title} cover`}
         className="bg-pink-400 w-full h-[80%] rounded-xl object-cover"

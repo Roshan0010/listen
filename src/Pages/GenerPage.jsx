@@ -54,6 +54,7 @@ const GenerPage = ({ data, generwideImage }) => {
           <FaCirclePlay size={50} className="h-[100%] " />
         </button>
         <img
+          loading="lazy"
           className="h-[25rem] w-full rounded-xl"
           src={image.url}
           alt={image.title}
