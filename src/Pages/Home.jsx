@@ -8,7 +8,7 @@ import MusicCards from '../components/MusicCards';
 import GenearCard from '../components/GenearCard';
 import TodaysPoster from '../components/TodaysPoster';
 import Spinner from '../components/Spinner';
-import CustomDropSearch from '../components/customDropSearch';
+import CustomDropSearch from '../components/CustomDropSearch';
 import { database, storage, id } from '../lib/appwrite';
 import PlaylistCard from '../components/PlaylistCard';
 
