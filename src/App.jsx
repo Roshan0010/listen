@@ -33,8 +33,15 @@ function App() {
   const [createPlaylist, setCreatePlaylist] = useState(false);
   const [addPlaylist, setAddPlaylist] = useState(false);
   const navigate = useNavigate();
-  const { music, data, loading, setLoading, isPlaying, setIsPlaying } =
-    useContext(MusicContext);
+  const {
+    music,
+    data,
+    loading,
+    setLoading,
+    isPlaying,
+    setIsPlaying,
+    currentPlaylist,
+  } = useContext(MusicContext);
 
   // Extract the pathname from the location object
   const currentDirectory = location.pathname;
@@ -138,6 +145,17 @@ function App() {
               />
             }
           />
+          <Route
+            path="/playlist/:playlist_name"
+            element={
+              <PlaylistPage
+                data={currentPlaylist}
+                wideImage="https://cloud.appwrite.io/v1/storage/buckets/65af6e78a7ee4064c3ef/files/65f7533f35a5cbc19e74/view?project=65aba948a96699b1bdd6&mode=admin"
+                
+              />
+            }
+          />
+          `
         </Routes>
       </div>
       {}

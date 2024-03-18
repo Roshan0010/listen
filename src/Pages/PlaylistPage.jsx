@@ -1,14 +1,17 @@
+/* eslint-disable camelcase */
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable react/button-has-type */
 /* eslint-disable react/prop-types */
 import React, { useContext, useEffect, useState } from 'react';
 import { FaCirclePlay } from 'react-icons/fa6';
+import { useParams } from 'react-router';
 import GenerList from '../components/GenerList';
 import { MusicContext } from '../context/MusicContext';
 
 const PlaylistPage = ({ data, wideImage, isDataPresent = true }) => {
   const [playlistData, setPlaylistData] = useState([]);
+  const { playlist_name } = useParams();
 
   const { setPlaylist, setMusic, setIsPlaying } = useContext(MusicContext);
   useEffect(() => {
@@ -33,13 +36,20 @@ const PlaylistPage = ({ data, wideImage, isDataPresent = true }) => {
   console.log(data);
   return (
     <div className="h-[90vh] w-[80%] flex flex-col relative mt-4 ">
-      <div className="w-full h-[50%] relative">
-        <button
-          onClick={() => onPLayPlaylist()}
-          className="absolute top-[90%] right-3"
-        >
-          <FaCirclePlay size={50} className="h-[100%] " />
-        </button>
+      <div className="w-full  relative">
+        <div>
+          {playlist_name && (
+            <div className="absolute top-[80%] text-5xl left-3">
+              {playlist_name}
+            </div>
+          )}
+          <button
+            onClick={() => onPLayPlaylist()}
+            className="absolute top-[80%] right-3"
+          >
+            <FaCirclePlay size={50} className="h-[100%] " />
+          </button>
+        </div>
 
         <img
           loading="lazy"

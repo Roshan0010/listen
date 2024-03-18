@@ -15,6 +15,7 @@ export function MusicContextProvider({ children }) {
   const [loading, setLoading] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [musicIdMap, setMusicIdMap] = useState(null);
+  const [currentPlaylist, setCurrentPlaylist] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -62,6 +63,8 @@ export function MusicContextProvider({ children }) {
     setIsPlaying,
     musicIdMap,
     setMusicIdMap,
+    currentPlaylist,
+    setCurrentPlaylist,
   };
 
   return (
